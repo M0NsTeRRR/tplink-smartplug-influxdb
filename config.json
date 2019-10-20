@@ -1,0 +1,6 @@
+{
+  "influxdb_url": "",
+  "delay": 0,
+  "smartplugs": [
+  ]
+}
