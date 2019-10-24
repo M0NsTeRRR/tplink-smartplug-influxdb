@@ -71,7 +71,7 @@ except FileNotFoundError:
     }
 
     for i in range(0, config["nb_smartplug"]):
-        name_smartplug = "SMARTPLUG_" + str(config["nb_smartplug"])
+        name_smartplug = "SMARTPLUG_" + str(i)
         config["smartplugs"].append(os_environ.get(name_smartplug, ""))
 except Exception as error:
     sys_exit(f'{error}')
@@ -101,10 +101,12 @@ while True:
     try:
         data = ""
         for smartplug in smartplugs:
-            data += "hs110,"
-            smartplug_data = smartplug.info
-            smartplug_data.update(smartplug.emeter_stats())
-            data += f'hs110 mac="{smartplug_data["mac"]}",version="{smartplug_data["sw_ver"]}",name="{smartplug_data["alias"]}",state={smartplug_data["relay_state"]},voltage_mv={smartplug_data["voltage_mv"]},current_ma={smartplug_data["current_ma"]},power_mw={smartplug_data["power_mw"]},total_wh={smartplug_data["total_wh"]}\n'
+            try:
+                smartplug_data = smartplug.info
+                smartplug_data.update(smartplug.emeter_stats())
+                data += f'hs110 mac="{smartplug_data["mac"]}",version="{smartplug_data["sw_ver"]}",name="{smartplug_data["alias"]}",state={smartplug_data["relay_state"]},voltage_mv={smartplug_data["voltage_mv"]},current_ma={smartplug_data["current_ma"]},power_mw={smartplug_data["power_mw"]},total_wh={smartplug_data["total_wh"]}\n'
+            except Exception as error:
+                logger.error(f'{error}')
 
         r = requests_post(config["influxdb"]["url"] + '/write', data=data, params={'db': config["influxdb"]["database"], 'u': config["influxdb"]["username"], 'p': config["influxdb"]["password"]})
         if r.status_code != 204:

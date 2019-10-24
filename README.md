@@ -39,13 +39,13 @@ Start the script `python main.py`
 
 ### Docker
 Fill environment variables
-`SMARTPLUG_X=` replace X with the number of your smartplug
+`SMARTPLUG_X=` replace X with the number of your smartplug (you must start from 0)
 
 `docker run -d --restart=always -e "INFLUXDB_URL=" -e "INFLUXDB_DATABASE=" -e "INFLUXDB_USERNAME=" -e "INFLUXDB_PASSWORD=" -e "DELAY=" -e "NB_SMARTPLUG=" -e "SMARTPLUG_X=" monsterrr/dealabs-price-error:latest`
 
 Example :
 
-`docker run -d --restart=always -e "INFLUXDB_URL=http://influxdb.com:8086" -e "INFLUXDB_DATABASE=tplinkplug" -e "INFLUXDB_USERNAME=username" -e "INFLUXDB_PASSWORD=password" -e "DELAY=60" -e "NB_SMARTPLUG=2" -e "SMARTPLUG_1=192.168.0.1" -e "SMARTPLUG_2=192.168.0.2" monsterrr/dealabs-price-error:latest`
+`docker run -d --restart=always -e "INFLUXDB_URL=http://influxdb.com:8086" -e "INFLUXDB_DATABASE=tplinkplug" -e "INFLUXDB_USERNAME=username" -e "INFLUXDB_PASSWORD=password" -e "DELAY=60" -e "NB_SMARTPLUG=2" -e "SMARTPLUG_0=192.168.0.1" -e "SMARTPLUG_1=192.168.0.2" monsterrr/dealabs-price-error:latest`
 # Licence
 
 The code is under CeCILL license.
