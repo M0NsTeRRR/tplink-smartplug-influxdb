@@ -104,13 +104,9 @@ while True:
             data += "hs110,"
             smartplug_data = smartplug.info
             smartplug_data.update(smartplug.emeter_stats())
+            data += f'hs110 mac="{smartplug_data["mac"]}",version="{smartplug_data["sw_ver"]}",name="{smartplug_data["alias"]}",state={smartplug_data["relay_state"]},voltage_mv={smartplug_data["voltage_mv"]},current_ma={smartplug_data["current_ma"]},power_mw={smartplug_data["power_mw"]},total_wh={smartplug_data["total_wh"]}\n'
 
-            for key, value in smartplug_data.items():
-                value = str(value).replace(" ", "\ ")
-                data += f'{key}={value} '
-            data += "\n"
-
-        r = requests_post(config["influxdb"]["url"], data=data, params={'db': config["influxdb"]["database"], 'u': config["influxdb"]["username"], 'p': config["influxdb"]["password"]})
+        r = requests_post(config["influxdb"]["url"] + '/write', data=data, params={'db': config["influxdb"]["database"], 'u': config["influxdb"]["username"], 'p': config["influxdb"]["password"]})
         if r.status_code != 204:
             logger.error(f'Error can\'t send data to InfluxDB URL --> {config["influxdb"]["url"]}\nHTTP Error code --> {r.status_code}')
         else:

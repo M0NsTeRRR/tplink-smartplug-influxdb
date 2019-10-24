@@ -22,7 +22,7 @@ Fill config.json with some informations :
 ```json
 {
   "influxdb": {
-      "url": "http://influxdb.com/",
+      "url": "http://influxdb.com:8086",
       "database": "tplinkplug",
       "username": "username",
       "password": "password"
@@ -45,7 +45,7 @@ Fill environment variables
 
 Example :
 
-`docker run -d --restart=always -e "INFLUXDB_URL=http://influxdb.com/" -e "INFLUXDB_DATABASE=tplinkplug" -e "INFLUXDB_USERNAME=username" -e "INFLUXDB_PASSWORD=password" -e "DELAY=60" -e "NB_SMARTPLUG=2" -e "SMARTPLUG_1=192.168.0.1" -e "SMARTPLUG_2=192.168.0.2" monsterrr/dealabs-price-error:latest`
+`docker run -d --restart=always -e "INFLUXDB_URL=http://influxdb.com:8086" -e "INFLUXDB_DATABASE=tplinkplug" -e "INFLUXDB_USERNAME=username" -e "INFLUXDB_PASSWORD=password" -e "DELAY=60" -e "NB_SMARTPLUG=2" -e "SMARTPLUG_1=192.168.0.1" -e "SMARTPLUG_2=192.168.0.2" monsterrr/dealabs-price-error:latest`
 # Licence
 
 The code is under CeCILL license.
