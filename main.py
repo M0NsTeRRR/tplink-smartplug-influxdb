@@ -59,12 +59,17 @@ try:
 except FileNotFoundError:
     # if file not found get env values
     config = {
-        "influxdb_url": os_environ.get("INFLUXDB_URL", ""),
+        "influxdb": {
+            "url":  os_environ.get("INFLUXDB_URL", ""),
+            "database": os_environ.get("INFLUXDB_DATABASE", ""),
+            "username": os_environ.get("INFLUXDB_USERNAME", ""),
+            "password": os_environ.get("INFLUXDB_PASSWORD", "")
+        },
         "delay": int(os_environ.get("DELAY", 0)),
         "nb_smartplug": int(os_environ.get("NB_SMARTPLUG", 0)),
-        "smartplugs": [
-        ]
+        "smartplugs": []
     }
+
     for i in range(0, config["nb_smartplug"]):
         name_smartplug = "SMARTPLUG_" + str(config["nb_smartplug"])
         config["smartplugs"].append(os_environ.get(name_smartplug, ""))
@@ -73,8 +78,14 @@ except Exception as error:
 
 # check configuration
 try:
-    if not config["influxdb_url"]:
-        raise Exception(f"INFLUXDB_URL can't be empty, value={config['influxdb_url']}")
+    if not config["influxdb"]["url"]:
+        raise Exception(f"INFLUXDB_URL can't be empty, value={config['influxdb']['url']}")
+    if not config["influxdb"]["database"]:
+        raise Exception(f"INFLUXDB_DATABASE can't be empty, value={config['influxdb']['database']}")
+    if not config["influxdb"]["username"]:
+        raise Exception(f"INFLUXDB_USERNAME can't be empty, value={config['influxdb']['username']}")
+    if not config["influxdb"]["password"]:
+        raise Exception(f"INFLUXDB_PASSWORD can't be empty, value={config['influxdb']['password']}")
     if config["delay"] < 10 or config["delay"] > 3600:
         raise Exception(f"DELAY must be in range [10, 3600], value={config['delay']}")
     if config["nb_smartplug"] < 1:
@@ -99,9 +110,9 @@ while True:
                 data += f'{key}={value} '
             data += "\n"
 
-        r = requests_post(config["influxdb_url"], data=data)
+        r = requests_post(config["influxdb"]["url"], data=data, params={'db': config["influxdb"]["database"], 'u': config["influxdb"]["username"], 'p': config["influxdb"]["password"]})
         if r.status_code != 204:
-            logger.error(f'Error can\'t send data to InfluxDB URL --> {config["influxdb_url"]}\nHTTP Error code --> {r.status_code}')
+            logger.error(f'Error can\'t send data to InfluxDB URL --> {config["influxdb"]["url"]}\nHTTP Error code --> {r.status_code}')
         else:
             logger.info(f'{data}')
     except Exception as error:

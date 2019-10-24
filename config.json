@@ -1,5 +1,10 @@
 {
-  "influxdb_url": "",
+  "influxdb": {
+      "url": "",
+      "database": "",
+      "username": "",
+      "password": ""
+  },
   "delay": 0,
   "smartplugs": [
   ]

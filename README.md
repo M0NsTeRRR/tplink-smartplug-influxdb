@@ -21,7 +21,12 @@ Fill config.json with some informations :
 - Delay can be must be set in range [10,3600]
 ```json
 {
-  "influxdb_url": "http://influxdb.com/write?db=tplinkplug",
+  "influxdb": {
+      "url": "http://influxdb.com/",
+      "database": "tplinkplug",
+      "username": "username",
+      "password": "password"
+  },
   "delay": 60,
   "smartplugs": [
     "192.168.0.1",
@@ -36,11 +41,11 @@ Start the script `python main.py`
 Fill environment variables
 `SMARTPLUG_X=` replace X with the number of your smartplug
 
-`docker run -d --restart=always -e "INFLUXDB_URL=" -e "DELAY=" -e "NB_SMARTPLUG=" -e "SMARTPLUG_X=" monsterrr/dealabs-price-error:latest`
+`docker run -d --restart=always -e "INFLUXDB_URL=" -e "INFLUXDB_DATABASE=" -e "INFLUXDB_USERNAME=" -e "INFLUXDB_PASSWORD=" -e "DELAY=" -e "NB_SMARTPLUG=" -e "SMARTPLUG_X=" monsterrr/dealabs-price-error:latest`
 
 Example :
 
-`docker run -d --restart=always -e "INFLUXDB_URL=http://influxdb.com/write?db=tplinkplug" -e "DELAY=60" -e "NB_SMARTPLUG=2" -e "SMARTPLUG_1=192.168.0.1" -e "SMARTPLUG_2=192.168.0.2" monsterrr/dealabs-price-error:latest`
+`docker run -d --restart=always -e "INFLUXDB_URL=http://influxdb.com/" -e "INFLUXDB_DATABASE=tplinkplug" -e "INFLUXDB_USERNAME=username" -e "INFLUXDB_PASSWORD=password" -e "DELAY=60" -e "NB_SMARTPLUG=2" -e "SMARTPLUG_1=192.168.0.1" -e "SMARTPLUG_2=192.168.0.2" monsterrr/dealabs-price-error:latest`
 # Licence
 
 The code is under CeCILL license.
