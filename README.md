@@ -1,6 +1,4 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/975f9c9d85ce4fb1b4c7f56a0735566e)](https://www.codacy.com/manual/M0NsTeRRR/tplink-smartplug-influxdb?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=M0NsTeRRR/tplink-smartplug-influxdb&amp;utm_campaign=Badge_Grade)
-[![Docker Automated build](https://img.shields.io/docker/cloud/automated/monsterrr/tplink-smartplug-influxdb?style=flat-square)](https://hub.docker.com/r/monsterrr/tplink-smartplug-influxdb)
-[![Docker Build Status](https://img.shields.io/docker/cloud/build/monsterrr/tplink-smartplug-influxdb?style=flat-square)](https://hub.docker.com/r/monsterrr/tplink-smartplug-influxdb)
 
 The goal of this project is to get data of tplink-smartplugs and to send data to an influx database. 
 
@@ -58,4 +56,4 @@ Copyright © Ludovic Ortega, 2019
 
 Contributor(s):
 
--Ortega Ludovic - mastership@hotmail.fr
+-Ortega Ludovic - ludovic.ortega@adminafk.fr
